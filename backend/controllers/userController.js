@@ -11,7 +11,7 @@ const registerUser = asyncHandler(async (req, res) => {
   if (!name || !email || !password) {
     res.status(400);
     throw Error("Please add all fields");
-  }
+  } 
 
   //check if user exist
   const userExists = await User.findOne({ email });
@@ -80,30 +80,6 @@ const getMe = asyncHandler(async (req, res) => {
   });
 });
 
-// @desc    Set userGoals
-// @route   POST /api/users/
-// @access  Private
-const setuserGoal = asyncHandler(async (req, res) => {
-  if (!req.body.text||!req.user.id) {
-    res.status(400);
-    throw new Error("Please add a text field");
-  }
-
-  const usergoal = await User.create({
-    user: req.user.id,
-    text: req.body.text,
-  });
-
-  res.status(200).json(usergoal);
-});
-// @desc    Get userGoals
-// @route   GET /api/goals/me/:id
-// @access  Private
-//  const getuserGoals = asyncHandler (async (req,res) => {
-//  const userGoals = await Users.find({ user: req.user.id});
-//  res.status(200).json(Users) 
-//})
-
 //generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -115,5 +91,4 @@ module.exports = {
   registerUser,
   loginUser,
   getMe,
-  setuserGoal
 };

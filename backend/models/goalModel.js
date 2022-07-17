@@ -10,11 +10,5 @@ const goalSchema = mongoose.Schema (
         timestamps: true,
     }
 )
-//user: {
-//    type: mongoose.Schema.Types.ObjectId,
-//    require: True,
-//    ref: "Users",
-//},
-
 
 module.exports = mongoose.model('Goals',goalSchema)
