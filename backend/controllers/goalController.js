@@ -1,39 +1,39 @@
 const asyncHandler = require('express-async-handler')
 const Goal = require('../models/goalModel')
 
-// @desc    Get User Goals
+// @desc    Get user goals
 // @route   GET /api/goals
 // @access  Private
-const getGoals = asyncHandler (async (req,res) => {
-    const goals = await Goal.find({ user: req.user.id});
-    res.status(200).json(goals) 
-})
+const getGoals = asyncHandler(async (req, res) => {
+    const goals = await Goal.find({ user: req.body.user });
+    res.status(200).json(goals);
+  });
 
-// @desc    Get All Goals
+// @desc    Get All User Goals
 // @route   GET /api/goals
 // @access  Private
 const getallGoals = asyncHandler (async (req,res) => {
     const goals = await Goal.find();
-    res.status(200).json(goals) 
+    res.status(200).json(goals);
 })
 
 
-// @desc    Set Goal
+// @desc    Set goals
 // @route   POST /api/goals
 // @access  Private
-const setGoal = asyncHandler (async (req,res) => {
-    if (!req.body.text){
-        res.status(400)
-        throw new Error ('Please add a text field')
+const setGoal = asyncHandler(async (req, res) => {
+    if (!req.body.text) {
+      res.status(400);
+      throw new Error("Please add a text field");
     }
-    
+  
     const goal = await Goal.create({
-        text: req.body.text,
-        user: req.user.id
-    })
-
-    res.status(200).json(goal)
-})
+      text: req.body.text,
+      user: req.body.user
+    });
+  
+    res.status(200).json(goal);
+  });
 
 // @desc    Update Goal
 // @route   PUT /api/goals/:id
